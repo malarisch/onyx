@@ -94,15 +94,15 @@ export function processPacket(
       return {
         message: currentMessage,
         status: obj.is_internet_search
-          ? "Searching the web..."
-          : "Searching internally...",
+          ? "Durchsuche das Web..."
+          : "Durchsuche interne Quellen...",
       };
 
     case "search_tool_queries_delta":
       // Queries being generated
       return {
         message: currentMessage,
-        status: "Generating search queries...",
+        status: "Erstelle Suchanfragen...",
       };
 
     case "search_tool_documents_delta":
@@ -110,19 +110,19 @@ export function processPacket(
       return {
         message: currentMessage,
         documents: obj.documents,
-        status: "Reading documents...",
+        status: "Lese Dokumente...",
       };
 
     case "open_url_start":
       return {
         message: currentMessage,
-        status: "Opening URLs...",
+        status: "Öffne URLs...",
       };
 
     case "open_url_urls":
       return {
         message: currentMessage,
-        status: "Fetching web pages...",
+        status: "Lade Webseiten...",
       };
 
     case "open_url_documents":
@@ -130,67 +130,67 @@ export function processPacket(
       return {
         message: currentMessage,
         documents: obj.documents,
-        status: "Processing web content...",
+        status: "Verarbeite Webinhalte...",
       };
 
     case "image_generation_start":
       return {
         message: currentMessage,
-        status: "Generating image...",
+        status: "Erzeuge Bild...",
       };
 
     case "image_generation_heartbeat":
       return {
         message: currentMessage,
-        status: "Generating image...",
+        status: "Erzeuge Bild...",
       };
 
     case "python_tool_start":
       return {
         message: currentMessage,
-        status: "Running Python code...",
+        status: "Führe Python-Code aus...",
       };
 
     case "python_tool_delta":
       return {
         message: currentMessage,
-        status: "Running Python code...",
+        status: "Führe Python-Code aus...",
       };
 
     case "custom_tool_start":
       return {
         message: currentMessage,
-        status: "Running custom tool...",
+        status: "Führe benutzerdefiniertes Werkzeug aus...",
       };
 
     case "reasoning_start":
       return {
         message: currentMessage,
-        status: "Thinking...",
+        status: "Denke nach...",
       };
 
     case "reasoning_delta":
       return {
         message: currentMessage,
-        status: "Thinking...",
+        status: "Denke nach...",
       };
 
     case "deep_research_plan_start":
       return {
         message: currentMessage,
-        status: "Planning research...",
+        status: "Plane Recherche...",
       };
 
     case "research_agent_start":
       return {
         message: currentMessage,
-        status: "Researching...",
+        status: "Recherchiere...",
       };
 
     case "intermediate_report_start":
       return {
         message: currentMessage,
-        status: "Generating report...",
+        status: "Erstelle Bericht...",
       };
 
     case "stop":

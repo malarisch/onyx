@@ -60,6 +60,10 @@ export interface ResolvedCitation {
   link?: string;
 }
 
+export interface StarterMessage {
+  message: string;
+}
+
 export interface SearchToolStart {
   type: "search_tool_start";
   is_internet_search?: boolean;
@@ -181,4 +185,10 @@ export interface CreateSessionRequest {
 
 export interface CreateSessionResponse {
   chat_session_id: string;
+}
+
+export interface PersonaResponse {
+  id: number;
+  name: string;
+  starter_messages: StarterMessage[] | null;
 }

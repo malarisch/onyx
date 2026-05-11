@@ -175,6 +175,41 @@ export const widgetStyles = css`
     background: var(--background-neutral-00);
   }
 
+  .starter-messages {
+    display: flex;
+    flex-direction: column;
+    gap: var(--onyx-space-sm);
+  }
+
+  .starter-message {
+    width: 100%;
+    text-align: left;
+    padding: var(--onyx-space-sm) var(--onyx-space-md);
+    border: 1px solid var(--border-01);
+    border-radius: var(--onyx-radius-12);
+    background: var(--onyx-assistant-message-bg);
+    color: var(--text-04);
+    cursor: pointer;
+    font-family: var(--onyx-font-family);
+    font-size: var(--onyx-font-size-main);
+    line-height: var(--onyx-line-height-main);
+    transition:
+      border-color var(--onyx-transition-fast),
+      background var(--onyx-transition-fast),
+      transform var(--onyx-transition-fast);
+  }
+
+  .starter-message:hover:not(:disabled) {
+    background: var(--background-neutral-00);
+    border-color: var(--theme-primary-05);
+    transform: translateY(-1px);
+  }
+
+  .starter-message:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
   .message {
     display: flex;
     flex-direction: column;

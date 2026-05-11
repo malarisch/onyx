@@ -6,6 +6,7 @@ import {
   Packet,
   CreateSessionRequest,
   CreateSessionResponse,
+  PersonaResponse,
   SendMessageRequest,
 } from "@/types/api-types";
 
@@ -51,6 +52,31 @@ export class ApiService {
 
     const data = (await response.json()) as CreateSessionResponse;
     return data.chat_session_id;
+  }
+
+  async getPersona(agentId: number): Promise<PersonaResponse> {
+    const response = await this.fetchWithRetry(
+      `${this.backendUrl}/persona/${agentId}`,
+      {
+        method: "GET",
+        headers: this.getHeaders(),
+      },
+    );
+
+    if (!response.ok) {
+      let detail = response.statusText;
+      try {
+        const body = await response.json();
+        if (body.detail) {
+          detail = body.detail;
+        }
+      } catch {
+        // Fall back to statusText if body isn't JSON
+      }
+      throw new Error(detail);
+    }
+
+    return (await response.json()) as PersonaResponse;
   }
 
   /**
