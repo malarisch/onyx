@@ -515,6 +515,29 @@ export const widgetStyles = css`
     border-bottom: 1px solid var(--border-01);
   }
 
+  .test-mode-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: var(--onyx-space-xs) var(--onyx-space-md);
+    background: var(--status-warning-01, #fff7ed);
+    color: var(--status-warning-05, #b45309);
+    font-size: 11px;
+    line-height: 1.3;
+    text-align: center;
+    border-bottom: 1px solid var(--border-01);
+  }
+
+  .test-mode-banner::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    flex: none;
+  }
+
   .error {
     padding: var(--onyx-space-md);
     background: var(--status-error-01);

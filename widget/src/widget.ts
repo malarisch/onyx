@@ -20,7 +20,10 @@ import { widgetStyles } from "./styles/widget-styles";
 import { ApiService } from "./services/api-service";
 import { processPacket } from "./services/stream-parser";
 import { saveSession, loadSession, clearSession } from "./utils/storage";
-import { logConversation } from "./services/conversation-logger";
+import {
+  logConversation,
+  getConversationLogUrl,
+} from "./services/conversation-logger";
 import { DEFAULT_LOGO } from "./assets/logo";
 
 @customElement("onyx-chat-widget")
@@ -689,6 +692,13 @@ export class OnyxChatWidget extends LitElement {
       this.isStreaming && (this.streamingStatus || !hasStreamingContent);
 
     return html`
+      ${getConversationLogUrl()
+        ? html`
+            <div class="test-mode-banner">
+              Testmodus – diese Konversation wird mitgeschrieben
+            </div>
+          `
+        : ""}
       <div class="disclaimer">
         Antworten werden von KI erzeugt und können fehlerhaft sein
       </div>
