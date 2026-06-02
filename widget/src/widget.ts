@@ -20,6 +20,7 @@ import { widgetStyles } from "./styles/widget-styles";
 import { ApiService } from "./services/api-service";
 import { processPacket } from "./services/stream-parser";
 import { saveSession, loadSession, clearSession } from "./utils/storage";
+import { logConversation } from "./services/conversation-logger";
 import { DEFAULT_LOGO } from "./assets/logo";
 
 @customElement("onyx-chat-widget")
@@ -351,7 +352,7 @@ export class OnyxChatWidget extends LitElement {
    */
   private buildVerifiedAnswerMailto(): string {
     const to = OnyxChatWidget.VERIFIED_ANSWER_EMAIL;
-    const subject = "Bitte um verifizierte Antwort";
+    const subject = "Bitte um verifizierte Antwort aus KI-Chat";
 
     // Find the last assistant message and the user question preceding it.
     const lastAssistantIndex = [...this.messages]
@@ -553,6 +554,15 @@ export class OnyxChatWidget extends LitElement {
             this.isStreaming = false;
             this.streamingStatus = "";
             saveSession(this.chatSessionId, this.messages);
+
+            // Log the completed Q&A pair (no-op unless a log URL is configured)
+            logConversation({
+              chatSessionId: this.chatSessionId,
+              timestamp: new Date().toISOString(),
+              agentName: this.config.agentName || "Assistent",
+              question: message,
+              answer: currentMessage.content,
+            });
           }
         }
       }

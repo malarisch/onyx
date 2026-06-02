@@ -41,7 +41,14 @@ export default defineConfig(({ mode }) => {
           "import.meta.env.VITE_WIDGET_API_KEY": JSON.stringify(
             env.VITE_WIDGET_API_KEY,
           ),
+          "import.meta.env.VITE_CONVO_LOG_URL": JSON.stringify(
+            env.VITE_CONVO_LOG_URL,
+          ),
         }
-      : {},
+      : {
+          "import.meta.env.VITE_CONVO_LOG_URL": JSON.stringify(
+            env.VITE_CONVO_LOG_URL,
+          ),
+        },
   };
 });
