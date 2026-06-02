@@ -340,6 +340,59 @@ export class OnyxChatWidget extends LitElement {
     }
   }
 
+  private static readonly VERIFIED_ANSWER_EMAIL =
+    "sophie.evers@fh-muenster.de";
+  // Defensive cap — some mail clients truncate very long mailto URLs.
+  private static readonly VERIFIED_ANSWER_MAX_BODY_LENGTH = 4000;
+
+  /**
+   * Build a mailto link prefilled with the most recent user question and the
+   * corresponding assistant answer, so the recipient can verify it in context.
+   */
+  private buildVerifiedAnswerMailto(): string {
+    const to = OnyxChatWidget.VERIFIED_ANSWER_EMAIL;
+    const subject = "Bitte um verifizierte Antwort";
+
+    // Find the last assistant message and the user question preceding it.
+    const lastAssistantIndex = [...this.messages]
+      .map((m) => m.role)
+      .lastIndexOf("assistant");
+    const lastAnswer =
+      lastAssistantIndex >= 0 ? this.messages[lastAssistantIndex] : undefined;
+    const lastQuestion = lastAnswer
+      ? [...this.messages.slice(0, lastAssistantIndex)]
+          .reverse()
+          .find((m) => m.role === "user")
+      : [...this.messages].reverse().find((m) => m.role === "user");
+
+    const parts: string[] = [
+      "Hallo,",
+      "",
+      "ich bitte um eine verifizierte Antwort zu folgender Frage:",
+    ];
+    if (lastQuestion) {
+      parts.push("", `Frage:\n${lastQuestion.content}`);
+    }
+    if (lastAnswer) {
+      parts.push("", `KI-Antwort:\n${lastAnswer.content}`);
+    }
+    parts.push("", "Vielen Dank!");
+
+    let body = parts.join("\n");
+    if (body.length > OnyxChatWidget.VERIFIED_ANSWER_MAX_BODY_LENGTH) {
+      body =
+        body.slice(0, OnyxChatWidget.VERIFIED_ANSWER_MAX_BODY_LENGTH) + "\n…";
+    }
+
+    return `mailto:${to}?subject=${encodeURIComponent(
+      subject,
+    )}&body=${encodeURIComponent(body)}`;
+  }
+
+  private openVerifiedAnswerMail() {
+    window.location.href = this.buildVerifiedAnswerMailto();
+  }
+
   private selectStarterMessage(message: string) {
     if (this.isLoading || this.isStreaming) {
       return;
@@ -699,6 +752,13 @@ export class OnyxChatWidget extends LitElement {
   private renderInput() {
     return html`
       <div class="input-wrapper">
+        <button
+          class="verified-answer"
+          @click=${this.openVerifiedAnswerMail}
+          title="Verifizierte Antwort erhalten"
+        >
+          Verifizierte Antwort erhalten
+        </button>
         <div class="input-container">
           <input
             class="input"

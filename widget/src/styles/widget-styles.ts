@@ -397,6 +397,34 @@ export const widgetStyles = css`
     gap: var(--onyx-space-xs);
   }
 
+  .verified-answer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--onyx-space-xs);
+    width: calc(100% - var(--onyx-space-md) * 2);
+    margin: var(--onyx-space-sm) var(--onyx-space-md) 0;
+    padding: var(--onyx-space-xs) var(--onyx-space-sm);
+    border: 1px solid var(--theme-primary-05);
+    border-radius: var(--onyx-radius-08);
+    background: transparent;
+    color: var(--theme-primary-05);
+    font-family: var(--onyx-font-family);
+    font-size: var(--onyx-font-size-main);
+    line-height: var(--onyx-line-height-main);
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition:
+      background var(--onyx-transition-fast),
+      color var(--onyx-transition-fast);
+  }
+
+  .verified-answer:hover {
+    background: var(--theme-primary-05);
+    color: var(--text-light-05);
+  }
+
   .input {
     flex: 1;
     min-width: 0;
